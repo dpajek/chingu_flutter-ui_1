@@ -66,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    articles.add(Article("Dark Mountain", "A bit dreary", "assets/mountain1.jpg"));
-    articles.add(Article("Cold Mountain", "It's so cold", "assets/mountain2.jpg"));
+    articles.add(Article("Dark Mountain", "A bit dreary", "assets/mountain1-small.jpg"));
+    articles.add(Article("Cold Mountain", "It's so cold", "assets/mountain2-small.jpg"));
     articles.add(
-        Article("Warm Mountain", "The trees are nice", "assets/mountain3.jpg"));
+        Article("Warm Mountain", "The trees are nice", "assets/mountain3-small.jpg"));
 
     articles[0].content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
