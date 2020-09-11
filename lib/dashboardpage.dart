@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:chingu_flutter/datadefinition.dart';
 import 'package:chingu_flutter/detailspage.dart';
 import 'package:chingu_flutter/allarticlespage.dart';
+import 'package:chingu_flutter/articleoftheday.dart';
 
 class DashboardPage extends StatelessWidget {
   DashboardPage({Key key, @required this.articles, @required this.context, @required this.title})
@@ -148,131 +149,7 @@ class DashboardPage extends StatelessWidget {
                       Text(
                         'Article of the Day',
                       ),
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: SizedBox(
-                              height: 170,
-                              //width: 150,
-                              child: Card(
-                                // This ensures that the Card's children (including the ink splash) are clipped correctly.
-                                clipBehavior: Clip.antiAlias,
-                                color: Colors.blueGrey[100],
-                                child: Container(),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: SizedBox(
-                              height: 165,
-                              //width: 150,
-                              child: Card(
-                                // This ensures that the Card's children (including the ink splash) are clipped correctly.
-                                clipBehavior: Clip.antiAlias,
-                                color: Colors.blueGrey[200],
-                                child: Container(),
-                              ),
-                            ),
-                          ),
-
-                          // Main Article of Day Card
-                          SizedBox(
-                            height: 160,
-                            //width: 150,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) {
-                                      return DetailsPage(
-                                        article: articles[2],
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Card(
-                                // This ensures that the Card's children (including the ink splash) are clipped correctly.
-                                clipBehavior: Clip.antiAlias,
-                                //color: Colors.blueGrey,
-                                //shape: null,
-
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Expanded(
-                                      child: Image(
-                                        //image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-3.jpg'),
-                                        image: AssetImage(articles[2].pic),
-                                        fit: BoxFit.cover,
-                                        alignment: Alignment.topCenter,
-                                        //height: 100,
-                                        width: 1000,
-                                      ),
-                                    ),
-                                    Container(
-                                      //color: Colors.blueGrey,
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                      alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        //crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            articles[2].title,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                color: Colors.white),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Icon(
-                                                  Icons.bookmark,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Icon(
-                                                  Icons.reply,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      ArticleOfTheDay(article: articles[2], context: context)
                     ],
                   ),
                 ),
