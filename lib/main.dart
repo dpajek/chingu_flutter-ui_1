@@ -1,16 +1,13 @@
+import 'package:chingu_flutter/allarticlespage.dart';
+import 'package:chingu_flutter/detailspage.dart';
+import 'package:chingu_flutter/datadefinition.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class Article {
-  String title;
-  String subtitle;
-  String pic;
-  Widget content;
-  Article(this.title, this.subtitle, this.pic);
-}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -38,19 +35,6 @@ class MyApp extends StatelessWidget {
 
         buttonColor: Colors.red[300],
 
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-
-        //primarySwatch: Colors.blue,
-
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Dashboard'),
@@ -77,30 +61,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final arts = <Article>[];
+  final articles = <Article>[];
 
-  /*
-  TextEditingController _controller;
-
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-  */
 
   @override
   Widget build(BuildContext context) {
-    arts.add(Article("Dark Mountain", "A bit dreary", "assets/mountain1.jpg"));
-    arts.add(Article("Cold Mountain", "It's so cold", "assets/mountain2.jpg"));
-    arts.add(
+    articles.add(Article("Dark Mountain", "A bit dreary", "assets/mountain1.jpg"));
+    articles.add(Article("Cold Mountain", "It's so cold", "assets/mountain2.jpg"));
+    articles.add(
         Article("Warm Mountain", "The trees are nice", "assets/mountain3.jpg"));
 
-    arts[0].content = Column(
+    articles[0].content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
@@ -150,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    arts[1].content = Column(
+    articles[1].content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
@@ -200,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    arts[2].content = Column(
+    articles[2].content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
@@ -340,13 +311,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           // Card 1
-                          _buildArticleCard(arts[0]),
+                          _buildArticleCard(articles[0]),
 
                           // Card 2
-                          _buildArticleCard(arts[1]),
+                          _buildArticleCard(articles[1]),
 
                           // Card 2
-                          _buildArticleCard(arts[2]),
+                          _buildArticleCard(articles[2]),
                         ],
                       ),
                     ),
@@ -404,12 +375,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute<void>(
                                     builder: (BuildContext context) {
-                                      return Scaffold(
-                                        appBar: AppBar(
-                                          title: Text(arts[2].title),
-                                        ),
-                                        body: _buildDetailsPage(arts[2]),
-                                      );
+                                      return DetailsPage(article: articles[2],);
                                     },
                                   ),
                                 );
@@ -427,7 +393,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Expanded(
                                       child: Image(
                                         //image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-3.jpg'),
-                                        image: AssetImage(arts[2].pic),
+                                        image: AssetImage(articles[2].pic),
                                         fit: BoxFit.cover,
                                         alignment: Alignment.topCenter,
                                         //height: 100,
@@ -445,7 +411,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         //crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            arts[2].title,
+                                            articles[2].title,
                                             style: TextStyle(
                                                 fontSize: 15.0,
                                                 color: Colors.white),
@@ -514,12 +480,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (BuildContext context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: Text(art.title),
-                    ),
-                    body: _buildDetailsPage(art),
-                  );
+                  return DetailsPage(article: art,);
                 },
               ),
             );
@@ -575,146 +536,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("All Articles"),
-            ),
-            body: _buildAllArticlesPage(),
-          );
+          return AllArticlesPage(articles: articles, context: context);
         },
       ),
     );
   }
-
-  Widget _buildAllArticlesPage() {
-    return ListView.builder(
-        padding: EdgeInsets.all(10.0),
-        itemCount: 3,
-        itemBuilder: (context, i) {
-          //if (i.isOdd) return Divider(); /*2*/
-
-          //final index = i ~/ 2; /*3*/
-          return _buildRow(arts[i]);
-        });
-  }
-
-  Widget _buildRow(Article art) {
-    return Container(
-      height: 60,
-      child: ListTile(
-        title: Text(
-          art.title,
-          //style: _biggerFont,
-        ),
-        leading: CircleAvatar(
-          backgroundImage: AssetImage(art.pic),
-          radius: 20,
-        ),
-
-        //Icon(Icons.favorite, ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: Text(art.title),
-                  ),
-                  body: _buildDetailsPage(art),
-                );
-              },
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildDetailsPage(Article art) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Stack(
-            alignment: const Alignment(-1, 0.8),
-            children: [
-              SizedBox(
-                height: 300,
-                //width: 150,
-                child: Image(
-                  image: AssetImage(art.pic),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
-                  //height: 100,
-                  width: 1000,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                //alignment: Alignment.bottomLeft,
-                color: Colors.grey[200].withOpacity(0.7),
-
-                child: Text(
-                  art.subtitle,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-            ],
-          ),
-          art.content,
-
-          /*
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 25, 20, 0),
-                child: Text(
-                  'Chapter 1',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
-                child: Text(
-                  'Chapter 2',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-            ],
-          ),*/
-        ],
-      ),
-    );
-  }
+  
 }
