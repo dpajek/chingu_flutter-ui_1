@@ -8,7 +8,7 @@ Here is a [live web app version](https://dpajek.github.io/flutter-ui-1/#/) (not 
 ## About Chingu
 [Chingu](https://chingu.io/) provides an environment for developers to learn through individual and team projects.
 
-The project idea / specs for this repo can be found [here](https://solofree.docs.chingu.io/solo/steps#tier-1-blog-ui).
+The specs for this project can be found [here](https://solofree.docs.chingu.io/solo/steps#tier-1-blog-ui).
 
 ## Screens
 1. A dashboard showing cards for each article:
