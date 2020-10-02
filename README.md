@@ -5,6 +5,11 @@ This project shows a simple UI for a blogging app built with Flutter. It contain
 
 Here is a [live web app version](https://dpajek.github.io/flutter-ui-1/#/) (not optimized for desktop)
 
+## About Chingu
+[Chingu](https://chingu.io/) provides an environment for developers to learn through individual and team projects.
+
+The project idea / specs for this repo can be found [here](https://solofree.docs.chingu.io/solo/steps#requirements).
+
 ## Screens
 1. A dashboard showing cards for each article:
 
@@ -21,7 +26,7 @@ Here is a [live web app version](https://dpajek.github.io/flutter-ui-1/#/) (not 
 ![Screen 3](https://github.com/dpajek/chingu_flutter-ui_1/blob/master/assets/flutter_t1_3.png)
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+You're welcome to send in a pull request....
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
